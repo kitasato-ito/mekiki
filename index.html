@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>メキキ マチミル。</title>
+<style>
+:root{
+--navy:#073f7d;
+--blue:#0878d8;
+--cyan:#08bde8;
+--green:#07966c;
+--orange:#ff9c23;
+--red:#ef5b5b;
+--ink:#16324f;
+--muted:#64788c;
+--bg:#f3f8fc;
+--line:#dbe8f2;
+--white:#fff;
+--shadow:0 8px 28px rgba(13,62,105,.10);
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",sans-serif;
+background:#dfeaf2;
+color:var(--ink);
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.phone{
+width:min(100%,430px);
+margin:auto;
+min-height:100vh;
+background:var(--bg);
+position:relative;
+padding-bottom:88px;
+box-shadow:0 0 40px rgba(0,0,0,.12);
+}
+header{
+position:sticky;top:0;z-index:20;
+background:rgba(255,255,255,.96);
+backdrop-filter:blur(12px);
+padding:13px 18px 11px;
+display:flex;align-items:center;justify-content:space-between;
+border-bottom:1px solid var(--line);
+}
+.logo{font-weight:900;font-size:20px;letter-spacing:-1px}
+.logo .g{color:var(--green)} .logo .b{color:var(--blue)}
+.logo .dot{color:var(--orange)}
+.tag{font-size:9px;color:var(--muted);font-weight:700}
+.avatar{
+width:38px;height:38px;border-radius:50%;
+background:#dceeff;display:grid;place-items:center;font-size:22px
+}
+.screen{display:none;padding:18px 16px 26px;animation:fade .2s ease}
+.screen.active{display:block}
+@keyframes fade{from{opacity:.25;transform:translateY(4px)}to{opacity:1}}
+h1{font-size:27px;line-height:1.3;margin:5px 0 8px;letter-spacing:-1px}
+h2{font-size:20px;margin:6px 0 12px}
+p{line-height:1.65;margin:7px 0}
+.muted{color:var(--muted);font-size:13px}
+.eyebrow{font-size:12px;color:var(--blue);font-weight:800}
+.hero{
+background:linear-gradient(135deg,#06457f,#0788d7);
+border-radius:22px;color:white;padding:22px;margin-bottom:16px;
+box-shadow:var(--shadow);overflow:hidden;position:relative;
+}
+.hero:after{
+content:"";position:absolute;width:150px;height:150px;border-radius:50%;
+background:rgba(255,255,255,.08);right:-45px;top:-50px;
+}
+.hero h1{font-size:29px}
+.hero p{color:#e7f6ff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.stat{background:rgba(255,255,255,.13);padding:10px 6px;border-radius:13px;text-align:center}
+.stat b{display:block;font-size:18px}
+.stat span{font-size:10px;color:#dff5ff}
+.card{
+background:white;border:1px solid #e3edf5;border-radius:18px;
+padding:16px;margin:12px 0;box-shadow:0 5px 18px rgba(18,70,110,.06);
+}
+.quest{padding:0;overflow:hidden}
+.quest-img{
+height:138px;background:linear-gradient(145deg,#8dd8a3,#dff2bd);
+display:flex;align-items:end;padding:15px;position:relative;
+}
+.quest-img.road{background:linear-gradient(145deg,#a6d9f8,#d9ecf8)}
+.quest-img.city{background:linear-gradient(145deg,#b6e3ee,#eaf7fa)}
+.quest-img .emoji{font-size:65px;position:absolute;right:17px;bottom:4px}
+.quest-body{padding:15px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.badge{
+background:#eaf5ff;color:var(--blue);font-size:11px;font-weight:800;
+padding:5px 8px;border-radius:20px;
+}
+.badge.green{background:#e7f8f1;color:var(--green)}
+.badge.orange{background:#fff3df;color:#b76500}
+.btn{
+border:0;border-radius:14px;padding:14px 17px;width:100%;
+background:var(--blue);color:white;font-weight:900;font-size:15px;
+box-shadow:0 5px 14px rgba(0,120,216,.18);
+}
+.btn.green{background:var(--green)}
+.btn.outline{background:white;color:var(--blue);border:2px solid #cfe6f7;box-shadow:none}
+.btn.small{width:auto;padding:9px 12px;font-size:12px}
+.row{display:flex;gap:9px}
+.row>*{flex:1}
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+.points{
+background:linear-gradient(135deg,#fff8e7,#fff0c5);
+border:1px solid #ffe0a0;border-radius:18px;padding:15px;
+display:flex;align-items:center;justify-content:space-between;
+}
+.points strong{font-size:25px;color:#d77900}
+.steps{display:flex;gap:3px;margin:13px 0 18px}
+.step{height:6px;background:#dce7ee;border-radius:8px;flex:1}
+.step.done{background:var(--green)}
+.check{
+display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #edf2f6;align-items:flex-start
+}
+.check input{width:22px;height:22px;accent-color:var(--green);flex:none}
+label{font-weight:700}
+textarea{
+width:100%;border:1.5px solid #d9e6ef;border-radius:13px;padding:12px;
+min-height:100px;background:#fbfdff;outline:none;margin-top:8px;
+}
+textarea:focus{border-color:var(--blue)}
+.rating{display:flex;justify-content:space-between;gap:5px;margin:12px 0}
+.rate{
+border:1px solid var(--line);background:white;border-radius:12px;
+padding:10px 7px;font-size:20px;flex:1
+}
+.rate.selected{border:2px solid var(--orange);background:#fff8e9}
+.photo{
+border:2px dashed #b9d5e7;border-radius:15px;height:110px;
+display:grid;place-items:center;color:var(--blue);background:#f7fcff;
+margin:10px 0;text-align:center;
+}
+.ai{
+background:linear-gradient(135deg,#e8f5ff,#edfdf8);
+border:1px solid #cce8f1;border-radius:18px;padding:17px;
+}
+.ai-title{font-weight:900;color:var(--navy);display:flex;gap:8px;align-items:center}
+.insight{background:white;border-radius:13px;padding:12px;margin-top:9px;border-left:4px solid var(--green)}
+.progress{height:9px;background:#e5edf3;border-radius:10px;overflow:hidden;margin:6px 0}
+.progress span{height:100%;display:block;background:linear-gradient(90deg,var(--cyan),var(--green))}
+.complete{text-align:center;padding:22px 5px}
+.complete .big{font-size:70px}
+.complete strong{font-size:29px;color:var(--green);display:block}
+.timeline{border-left:3px solid #cbe4f5;margin-left:10px;padding-left:20px}
+.timeline .item{position:relative;margin:0 0 20px}
+.timeline .item:before{
+content:"";position:absolute;width:12px;height:12px;border-radius:50%;
+background:var(--blue);left:-27px;top:5px;border:3px solid white;
+}
+.feedback{
+background:#e9f8f2;border-radius:15px;padding:14px;border-left:5px solid var(--green)
+}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.metric{background:white;border-radius:15px;padding:13px;border:1px solid var(--line)}
+.metric b{display:block;font-size:24px;color:var(--navy)}
+.map{
+height:180px;border-radius:17px;background:
+linear-gradient(30deg,transparent 48%,#c7dce8 49%,#c7dce8 51%,transparent 52%),
+linear-gradient(-35deg,transparent 48%,#c7dce8 49%,#c7dce8 51%,transparent 52%),#edf5ef;
+position:relative;overflow:hidden;
+}
+.pin{position:absolute;font-size:26px}
+.bottomnav{
+position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+width:min(100%,430px);height:74px;background:rgba(255,255,255,.97);
+border-top:1px solid #dce8ef;display:grid;grid-template-columns:repeat(5,1fr);
+z-index:30;padding-bottom:env(safe-area-inset-bottom);
+}
+.nav{
+border:0;background:none;color:#718598;font-size:9px;font-weight:700;
+display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px
+}
+.nav span{font-size:21px}
+.nav.active{color:var(--blue)}
+.hidden{display:none}
+.toast{
+position:fixed;z-index:100;left:50%;transform:translateX(-50%);
+bottom:90px;background:#173c5d;color:white;padding:12px 17px;
+border-radius:30px;font-size:12px;opacity:0;pointer-events:none;transition:.25s
+}
+.toast.show{opacity:1}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+.switch{font-size:11px;color:var(--blue);font-weight:800}
+</style>
+</head>
+<body>
+<div class="phone">
+<header>
+<div>
+<div class="logo"><span class="g">メキキ</span> <span class="b">マチミル</span><span class="dot">。</span></div>
+<div class="tag">地域の課題を、シニアの出番に。</div>
+</div>
+<div class="avatar">👨🏻‍🦳</div>
+</header>
+
+<!-- 1 HOME -->
+<section id="home" class="screen active">
+<div class="hero">
+<div class="eyebrow" style="color:#bdeeff">9月18日 金曜日</div>
+<h1>こんにちは、佐藤さん。<br>今日、まちで何しますか？</h1>
+<p>あなたの経験を活かせる「今日の出番」が届いています。</p>
+<div class="stats">
+<div class="stat"><b id="homePoints">3,250</b><span>地域ポイント</span></div>
+<div class="stat"><b>6回</b><span>今月の参加</span></div>
+<div class="stat"><b>18件</b><span>届けた気づき</span></div>
+</div>
+</div>
+
+<div class="section-title"><h2>あなたにおすすめ</h2><span class="switch">すべて見る →</span></div>
+<div class="card quest">
+<div class="quest-img">
+<span class="badge orange">おすすめ 92%</span><span class="emoji">🌳</span>
+</div>
+<div class="quest-body">
+<div class="badges"><span class="badge green">📍 1.2km</span><span class="badge">約30分</span><span class="badge orange">500pt</span></div>
+<h2>中央公園をメキキ！</h2>
+<p class="muted">ベンチや案内表示を実際に使って、「もっとこうだったらいいな」を教えてください。</p>
+<button class="btn" onclick="show('detail')">このクエストを見てみる</button>
+</div>
+</div>
+
+<div class="points">
+<div><small>使える地域ポイント</small><br><strong id="walletHome">3,250 pt</strong></div>
+<div style="font-size:38px">🪙</div>
+</div>
+</section>
+
+<!-- 2 QUEST LIST -->
+<section id="quests" class="screen">
+<span class="eyebrow">QUEST</span><h1>まちの「出番」を探す</h1>
+<p class="muted">気になるものから。無理なく、自分のペースで参加できます。</p>
+
+<div class="card quest">
+<div class="quest-img"><span class="emoji">🌳</span></div>
+<div class="quest-body"><b>中央公園をメキキ！</b>
+<div class="badges"><span class="badge">30分</span><span class="badge orange">500pt</span></div>
+<button class="btn small" onclick="show('detail')">詳細を見る</button>
+</div>
+</div>
+<div class="card quest">
+<div class="quest-img road"><span class="emoji">🚶</span></div>
+<div class="quest-body"><b>防災ルートを歩いてみよう</b>
+<div class="badges"><span class="badge">45分</span><span class="badge orange">800pt</span></div>
+</div>
+</div>
+<div class="card quest">
+<div class="quest-img city"><span class="emoji">🏢</span></div>
+<div class="quest-body"><b>市役所の案内を使ってメキキ</b>
+<div class="badges"><span class="badge">25分</span><span class="badge orange">300pt</span></div>
+</div>
+</div>
+</section>
+
+<!-- 3 DETAIL -->
+<section id="detail" class="screen">
+<button class="btn small outline" onclick="show('home')">← 戻る</button>
+<div class="card quest">
+<div class="quest-img"><span class="emoji">🌳</span></div>
+<div class="quest-body">
+<span class="eyebrow">中央公園クエスト</span>
+<h1>中央公園をメキキ！</h1>
+<div class="badges"><span class="badge">📍1.2km</span><span class="badge">約30分</span><span class="badge orange">500pt</span></div>
+<h2>なぜ、このクエスト？</h2>
+<p>中央公園をもっと使いやすくするため、市では実際に利用した人の気づきを集めています。</p>
+<div class="feedback"><b>あなたの出番</b><br>公園を実際に歩き、座り、案内を見て「利用者だから気づけること」を教えてください。</div>
+<hr>
+<b>今日やること</b>
+<p class="muted">① 公園を歩く　② ベンチを使う　③ 案内を見る　④ 気づきを投稿</p>
+<button class="btn green" onclick="show('start')">このクエストに参加する</button>
+</div>
+</div>
+</section>
+
+<!-- 4 START -->
+<section id="start" class="screen">
+<span class="eyebrow">QUEST START</span><h1>さあ、メキキ開始。</h1>
+<div class="steps"><i class="step done"></i><i class="step"></i><i class="step"></i><i class="step"></i></div>
+<div class="card">
+<h2>まずは、実際に使ってみよう</h2>
+<div class="check"><input type="checkbox" id="c1"><label for="c1">公園の入口から園内を歩いた</label></div>
+<div class="check"><input type="checkbox" id="c2"><label for="c2">ベンチに実際に座ってみた</label></div>
+<div class="check"><input type="checkbox" id="c3"><label for="c3">案内板・トイレ表示を確認した</label></div>
+<div class="check"><input type="checkbox" id="c4"><label for="c4">「気になる場所」を一つ見つけた</label></div>
+</div>
+<button class="btn" onclick="beginObservation()">気づきを記録する →</button>
+</section>
+
+<!-- 5 INPUT -->
+<section id="input" class="screen">
+<span class="eyebrow">MEKIKI</span><h1>何に気づきましたか？</h1>
+<div class="steps"><i class="step done"></i><i class="step done"></i><i class="step"></i><i class="step"></i></div>
+<div class="card">
+<b>📷 現地の写真</b>
+<div class="photo" onclick="photoTaken(this)">📷<br><small>タップして写真を撮る（疑似）</small></div>
+
+<b>公園の使いやすさは？</b>
+<div class="rating">
+<button class="rate" onclick="rate(this,1)">😣</button>
+<button class="rate" onclick="rate(this,2)">😕</button>
+<button class="rate" onclick="rate(this,3)">🙂</button>
+<button class="rate" onclick="rate(this,4)">😊</button>
+<button class="rate" onclick="rate(this,5)">🤩</button>
+</div>
+
+<b>気づいたことを教えてください</b>
+<textarea id="comment">ベンチはきれいですが、午後は日陰が少なく夏は暑そうです。もう少し木陰があると使いやすいと思います。</textarea>
+</div>
+<button class="btn green" onclick="analyze()">AIに整理してもらう</button>
+</section>
+
+<!-- 6 AI RESULT -->
+<section id="analysis" class="screen">
+<span class="eyebrow">AI ANALYSIS</span><h1>あなたの気づきを整理しました。</h1>
+<div class="steps"><i class="step done"></i><i class="step done"></i><i class="step done"></i><i class="step"></i></div>
+<div class="ai">
+<div class="ai-title">✨ メキキAI分析</div>
+<div class="insight"><b>テーマ</b><br><span id="theme">休憩環境・暑さ対策</span></div>
+<div class="insight"><b>気づき</b><br><span id="summary">ベンチ自体は良好だが、日陰が少なく暑い時間帯の利用に課題。</span></div>
+<div class="insight"><b>改善のヒント</b><br><span id="suggestion">木陰・日よけの確保や、休憩場所の配置を検討する余地があります。</span></div>
+<div class="insight"><b>Experience Data</b><br>
+📍中央公園　・　👤66歳<br>
+👀ベンチ・休憩環境　・　⭐ <span id="scoreText">3/5</span>
+</div>
+</div>
+<p class="muted">AIは投稿を整理するために使われます。最終的な政策判断は自治体が行います。</p>
+<button class="btn" onclick="show('plan')">この内容で届ける →</button>
+</section>
+
+<!-- 7 PLAN -->
+<section id="plan" class="screen">
+<span class="eyebrow">YOUR IMPACT</span><h1>あなたの気づきが、まちの改善候補になります。</h1>
+<div class="card">
+<h2>今回の提案</h2>
+<div class="feedback">
+🌳 <b>中央公園・休憩環境</b><br><br>
+日陰のある休憩スペースについて、同じテーマの投稿と合わせて自治体の確認候補として整理します。
+</div>
+<hr>
+<b>同じテーマの気づき</b>
+<p><strong style="font-size:28px;color:var(--blue)">27件</strong> 集まっています</p>
+<div class="progress"><span style="width:68%"></span></div>
+<p class="muted">「日陰が少ない」「夏場に休みにくい」など、似た気づきがあります。</p>
+</div>
+<button class="btn green" onclick="completeQuest()">クエストを完了する</button>
+</section>
+
+<!-- 8 COMPLETE -->
+<section id="complete" class="screen">
+<div class="complete">
+<div class="big">🎉</div>
+<span class="eyebrow">QUEST COMPLETE</span>
+<h1>あなたの気づきが<br>地域に届きました。</h1>
+<p>中央公園クエストへの参加、ありがとうございました。</p>
+<div class="card">
+<small>獲得した地域ポイント</small>
+<strong>+500 pt</strong>
+<p class="muted">地域のお店・施設などで使えるポイントです。</p>
+</div>
+<div class="feedback"><b>今日の活動</b><br>外出 約42分　・　歩行 約3,200歩<br>地域への気づき 1件</div>
+<br>
+<button class="btn" onclick="show('wallet')">ポイントを見る</button><br><br>
+<button class="btn outline" onclick="show('impact')">この気づきのその後を見る</button>
+</div>
+</section>
+
+<!-- 9 WALLET -->
+<section id="wallet" class="screen">
+<span class="eyebrow">LOCAL POINT</span><h1>地域ポイント</h1>
+<div class="hero">
+<small>現在の残高</small>
+<h1 id="walletBalance">3,750 pt</h1>
+<p>クエストで貯めて、地域で使う。</p>
+</div>
+<h2>地域で使えます</h2>
+<div class="card">☕ <b>まちのカフェ</b><br><span class="muted">コーヒー・ランチに</span></div>
+<div class="card">🚌 <b>地域交通</b><br><span class="muted">バス・移動サービスに</span></div>
+<div class="card">🛍️ <b>商店街</b><br><span class="muted">加盟店でのお買い物に</span></div>
+<div class="card">🏛️ <b>公共・文化施設</b><br><span class="muted">対象施設で利用可能</span></div>
+<div class="feedback"><b>外出 → クエスト → ポイント → 地域で使う → また外出</b><br><br>あなたが動くことで、お金も地域を巡ります。</div>
+</section>
+
+<!-- 10 ACTIVITY -->
+<section id="activity" class="screen">
+<span class="eyebrow">MY ACTIVITY</span><h1>あなたの地域での活動</h1>
+<div class="admin-grid">
+<div class="metric"><small>今月の参加</small><b id="actCount">6回</b></div>
+<div class="metric"><small>歩いた距離</small><b>12.4km</b></div>
+<div class="metric"><small>届けた気づき</small><b>18件</b></div>
+<div class="metric"><small>訪れた場所</small><b>5か所</b></div>
+</div>
+<div class="card">
+<h2>今月の出番</h2>
+<div class="progress"><span style="width:75%"></span></div>
+<p><b>6 / 8回</b>参加しました。</p>
+<p class="muted">あと2回で「月8回参加ボーナス +1,000pt」</p>
+</div>
+<div class="card">
+<h2>あなたが生み出したもの</h2>
+<p>🚶 地域に出た時間　<strong>約7.2時間</strong></p>
+<p>💬 地域に届けた声　<strong>18件</strong></p>
+<p>🌱 改善検討につながった気づき　<strong>3件</strong></p>
+</div>
+</section>
+
+<!-- 11 IMPACT -->
+<section id="impact" class="screen">
+<span class="eyebrow">FEEDBACK</span><h1>あなたの気づきは、どうなった？</h1>
+<div class="timeline">
+<div class="item"><b>あなたが投稿</b><p class="muted">「中央公園は日陰が少なく、夏は休みにくい」</p></div>
+<div class="item"><b>127人がクエストに参加</b><p class="muted">324件のExperience Dataが集まりました。</p></div>
+<div class="item"><b>AIがテーマ別に整理</b><p class="muted">「休憩環境」「案内表示」「トイレ」など10テーマに整理。</p></div>
+<div class="item"><b>自治体が確認</b><p class="muted">休憩環境が「現地確認したい課題」に選ばれました。</p></div>
+</div>
+<div class="feedback"><b>あなたの声が、ちゃんと届いています。</b><br>投稿して終わりではなく、その後もお知らせします。</div>
+</section>
+
+<!-- 12 ADMIN -->
+<section id="admin" class="screen">
+<span class="eyebrow">FOR MUNICIPALITY</span><h1>自治体ダッシュボード</h1>
+<p class="muted">※デモ用の仮データです。</p>
+<div class="admin-grid">
+<div class="metric"><small>参加シニア</small><b>127人</b><span class="muted">今月 +18</span></div>
+<div class="metric"><small>参加回数</small><b>684回</b><span class="muted">月平均5.4回</span></div>
+<div class="metric"><small>Experience Data</small><b>1,248件</b></div>
+<div class="metric"><small>継続参加率</small><b>72%</b></div>
+</div>
+<div class="card">
+<h2>地域の気づきマップ</h2>
+<div class="map">
+<span class="pin" style="left:18%;top:30%">📍</span>
+<span class="pin" style="left:48%;top:52%">📍</span>
+<span class="pin" style="left:70%;top:20%">📍</span>
+<span class="pin" style="left:76%;top:68%">📍</span>
+<span class="pin" style="left:34%;top:72%">📍</span>
+</div>
+</div>
+<div class="ai">
+<div class="ai-title">✨ Insight Engine</div>
+<div class="insight"><b>1. 中央公園｜休憩環境</b><br>類似する気づき 27件　重要度：高</div>
+<div class="insight"><b>2. 駅前道路｜歩行安全性</b><br>類似する気づき 21件　重要度：高</div>
+<div class="insight"><b>3. 市役所｜案内表示</b><br>類似する気づき 18件　重要度：中</div>
+</div>
+<div class="card">
+<h2>EBPMにつながる地域データへ</h2>
+<p class="muted">誰が・どこへ行き・何を使い・何を見て・どこで困り・何を感じたかを構造化。政策検討の材料として活用します。</p>
+</div>
+</section>
+
+<!-- 13 CONTACT -->
+<section id="contact" class="screen">
+<span class="eyebrow">ABOUT</span><h1>メキキ マチミル。</h1>
+<div class="hero">
+<h1>地域の課題を、<br>シニアの出番に。</h1>
+<p>人が動く。データが地域に残る。お金も地域を巡る。</p>
+</div>
+<div class="card">
+<h2>自治体・企業の方へ</h2>
+<p>地域課題をクエストに変え、シニアの社会参加とExperience Dataの蓄積を同時に生み出します。</p>
+<input placeholder="自治体・企業名" style="width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;margin:6px 0">
+<input placeholder="メールアドレス" style="width:100%;padding:13px;border:1px solid var(--line);border-radius:12px;margin:6px 0">
+<textarea placeholder="お問い合わせ内容"></textarea>
+<button class="btn" onclick="toast('お問い合わせを受け付けました（デモ）')">問い合わせる</button>
+</div>
+<button class="btn outline" onclick="show('admin')">自治体向けデモ画面を見る</button>
+</section>
+
+<nav class="bottomnav">
+<button class="nav active" data-screen="home" onclick="navTo('home',this)"><span>🏠</span>ホーム</button>
+<button class="nav" data-screen="quests" onclick="navTo('quests',this)"><span>🧭</span>クエスト</button>
+<button class="nav" data-screen="wallet" onclick="navTo('wallet',this)"><span>🪙</span>ポイント</button>
+<button class="nav" data-screen="activity" onclick="navTo('activity',this)"><span>📊</span>活動</button>
+<button class="nav" data-screen="contact" onclick="navTo('contact',this)"><span>👤</span>その他</button>
+</nav>
+<div id="toast" class="toast"></div>
+</div>
+
+<script>
+let score=3, completed=false, balance=3250;
+
+function show(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));
+}
+function navTo(id,el){ show(id); }
+function toast(msg){
+const t=document.getElementById('toast');
+t.textContent=msg;t.classList.add('show');
+setTimeout(()=>t.classList.remove('show'),1800);
+}
+function beginObservation(){
+const checked=[...document.querySelectorAll('#start input')].filter(x=>x.checked).length;
+if(checked<2){toast('まず2つ以上体験してみてください');return;}
+show('input');
+}
+function photoTaken(el){
+el.innerHTML='✅ 写真を記録しました<br><small>中央公園・ベンチ付近</small>';
+el.style.background='#eaf9f3';el.style.borderColor='#65c6a2';
+}
+function rate(el,n){
+score=n;
+document.querySelectorAll('.rate').forEach(x=>x.classList.remove('selected'));
+el.classList.add('selected');
+}
+function analyze(){
+const c=document.getElementById('comment').value;
+document.getElementById('scoreText').textContent=score+'/5';
+if(c.includes('トイレ')){
+theme.textContent='トイレ・案内環境';
+summary.textContent='トイレに関する案内や利用環境に改善余地がある可能性。';
+suggestion.textContent='案内表示や利用導線を現地で確認する候補として整理します。';
+}else if(c.includes('段差')||c.includes('歩き')){
+theme.textContent='歩行・バリアフリー';
+summary.textContent='歩行時の安全性・移動しやすさに関する気づき。';
+suggestion.textContent='段差や歩行導線を現地確認する候補として整理します。';
+}else{
+theme.textContent='休憩環境・暑さ対策';
+summary.textContent='ベンチ自体は良好だが、日陰が少なく暑い時間帯の利用に課題。';
+suggestion.textContent='木陰・日よけの確保や、休憩場所の配置を検討する余地があります。';
+}
+show('analysis');
+}
+function completeQuest(){
+if(!completed){
+completed=true; balance+=500;
+document.getElementById('walletBalance').textContent=balance.toLocaleString()+' pt';
+document.getElementById('walletHome').textContent=balance.toLocaleString()+' pt';
+document.getElementById('homePoints').textContent=balance.toLocaleString();
+document.getElementById('actCount').textContent='7回';
+}
+show('complete');
+}
+</script>
+</body>
+</html>
