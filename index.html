@@ -213,11 +213,14 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 </div>
 </div>
 
-<div class="section-title"><h2>あなたにおすすめ</h2><span class="switch">すべて見る →</span></div>
+<div class="section-title"><h2>あなたにおすすめ(92%)</h2><span class="switch">すべて見る →</span></div>
 <div class="card quest">
+
 <div class="quest-img">
-<span class="badge orange">おすすめ 92%</span><span class="emoji">🌳</span>
+    <img src="image/park.png" alt="中央公園" style="width:100%;height:100%;object-fit:cover;">
 </div>
+
+
 <div class="quest-body">
 <div class="badges"><span class="badge green">📍 1.2km</span><span class="badge">約30分</span><span class="badge orange">500pt</span></div>
 <h2>中央公園をメキキ！</h2>
@@ -238,22 +241,30 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 <p class="muted">気になるものから。無理なく、自分のペースで参加できます。</p>
 
 <div class="card quest">
-<div class="quest-img"><span class="emoji">🌳</span></div>
+<div class="quest-img">
+    <img src="image/park.png" alt="中央公園" style="width:100%;height:100%;object-fit:cover;">
+</div>
 <div class="quest-body"><b>中央公園をメキキ！</b>
 <div class="badges"><span class="badge">30分</span><span class="badge orange">500pt</span></div>
-<button class="btn small" onclick="show('detail')">詳細を見る</button>
+<button class="btn small" onclick="openQuest('park')">詳細を見る</button>
 </div>
 </div>
 <div class="card quest">
-<div class="quest-img road"><span class="emoji">🚶</span></div>
+<div class="quest-img road">
+    <img src="image/bousai.png" alt="防災ルート" style="width:100%;height:100%;object-fit:cover;">
+</div>
 <div class="quest-body"><b>防災ルートを歩いてみよう</b>
 <div class="badges"><span class="badge">45分</span><span class="badge orange">800pt</span></div>
+<button class="btn small" onclick="openQuest('route')">詳細を見る</button>
 </div>
 </div>
 <div class="card quest">
-<div class="quest-img city"><span class="emoji">🏢</span></div>
+<div class="quest-img city">
+    <img src="image/service_counter.png" alt="市役所" style="width:100%;height:100%;object-fit:cover;">
+</div>
 <div class="quest-body"><b>市役所の案内を使ってメキキ</b>
 <div class="badges"><span class="badge">25分</span><span class="badge orange">300pt</span></div>
+<button class="btn small" onclick="openQuest('city')">詳細を見る</button>
 </div>
 </div>
 </section>
@@ -262,17 +273,19 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 <section id="detail" class="screen">
 <button class="btn small outline" onclick="show('home')">← 戻る</button>
 <div class="card quest">
-<div class="quest-img"><span class="emoji">🌳</span></div>
+<div id="detailQuestImg" class="quest-img">
+    <img src="image/park.png" alt="中央公園" style="width:100%;height:100%;object-fit:cover;">
+</div>
 <div class="quest-body">
-<span class="eyebrow">中央公園クエスト</span>
-<h1>中央公園をメキキ！</h1>
-<div class="badges"><span class="badge">📍1.2km</span><span class="badge">約30分</span><span class="badge orange">500pt</span></div>
+<span id="detailQuestEyebrow" class="eyebrow">中央公園クエスト</span>
+<h1 id="detailQuestTitle">中央公園をメキキ！</h1>
+<div id="detailQuestMeta" class="badges"><span class="badge">📍1.2km</span><span class="badge">約30分</span><span class="badge orange">500pt</span></div>
 <h2>なぜ、このクエスト？</h2>
-<p>中央公園をもっと使いやすくするため、市では実際に利用した人の気づきを集めています。</p>
-<div class="feedback"><b>あなたの出番</b><br>公園を実際に歩き、座り、案内を見て「利用者だから気づけること」を教えてください。</div>
+<p id="detailQuestWhy">中央公園をもっと使いやすくするため、市では実際に利用した人の気づきを集めています。</p>
+<div class="feedback"><b>あなたの出番</b><br><span id="detailQuestRole">公園を実際に歩き、座り、案内を見て「利用者だから気づけること」を教えてください。</span></div>
 <hr>
 <b>今日やること</b>
-<p class="muted">① 公園を歩く　② ベンチを使う　③ 案内を見る　④ 気づきを投稿</p>
+<p id="detailQuestTasks" class="muted">① 公園を歩く　② ベンチを使う　③ 案内を見る　④ 気づきを投稿</p>
 <button class="btn green" onclick="show('start')">このクエストに参加する</button>
 </div>
 </div>
@@ -280,27 +293,27 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 
 <!-- 4 START -->
 <section id="start" class="screen">
-<span class="eyebrow">QUEST START</span><h1>さあ、メキキ開始。</h1>
+<span class="eyebrow">QUEST START</span><h1 id="startTitle">さあ、メキキ開始。</h1>
 <div class="steps"><i class="step done"></i><i class="step"></i><i class="step"></i><i class="step"></i></div>
 <div class="card">
 <h2>まずは、実際に使ってみよう</h2>
-<div class="check"><input type="checkbox" id="c1"><label for="c1">公園の入口から園内を歩いた</label></div>
-<div class="check"><input type="checkbox" id="c2"><label for="c2">ベンチに実際に座ってみた</label></div>
-<div class="check"><input type="checkbox" id="c3"><label for="c3">案内板・トイレ表示を確認した</label></div>
-<div class="check"><input type="checkbox" id="c4"><label for="c4">「気になる場所」を一つ見つけた</label></div>
+<div class="check"><input type="checkbox" id="c1"><label id="startCheck1" for="c1">公園の入口から園内を歩いた</label></div>
+<div class="check"><input type="checkbox" id="c2"><label id="startCheck2" for="c2">ベンチに実際に座ってみた</label></div>
+<div class="check"><input type="checkbox" id="c3"><label id="startCheck3" for="c3">案内板・トイレ表示を確認した</label></div>
+<div class="check"><input type="checkbox" id="c4"><label id="startCheck4" for="c4">「気になる場所」を一つ見つけた</label></div>
 </div>
 <button class="btn" onclick="beginObservation()">気づきを記録する →</button>
 </section>
 
 <!-- 5 INPUT -->
 <section id="input" class="screen">
-<span class="eyebrow">MEKIKI</span><h1>何に気づきましたか？</h1>
+<span class="eyebrow">MEKIKI</span><h1 id="inputTitle">何に気づきましたか？</h1>
 <div class="steps"><i class="step done"></i><i class="step done"></i><i class="step"></i><i class="step"></i></div>
 <div class="card">
 <b>📷 現地の写真</b>
-<div class="photo" onclick="photoTaken(this)">📷<br><small>タップして写真を撮る（疑似）</small></div>
+<div id="photoNote" class="photo" onclick="photoTaken(this)">📷<br><small>タップして写真を撮る（疑似）</small></div>
 
-<b>公園の使いやすさは？</b>
+<b id="inputQuestion">公園の使いやすさは？</b>
 <div class="rating">
 <button class="rate" onclick="rate(this,1)">😣</button>
 <button class="rate" onclick="rate(this,2)">😕</button>
@@ -325,8 +338,8 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 <div class="insight"><b>気づき</b><br><span id="summary">ベンチ自体は良好だが、日陰が少なく暑い時間帯の利用に課題。</span></div>
 <div class="insight"><b>改善のヒント</b><br><span id="suggestion">木陰・日よけの確保や、休憩場所の配置を検討する余地があります。</span></div>
 <div class="insight"><b>Experience Data</b><br>
-📍中央公園　・　👤66歳<br>
-👀ベンチ・休憩環境　・　⭐ <span id="scoreText">3/5</span>
+📍<span id="analysisLocation">中央公園</span>　・　👤66歳<br>
+👀<span id="analysisTag">ベンチ・休憩環境</span>　・　⭐ <span id="scoreText">3/5</span>
 </div>
 </div>
 <p class="muted">AIは投稿を整理するために使われます。最終的な政策判断は自治体が行います。</p>
@@ -338,15 +351,15 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 <span class="eyebrow">YOUR IMPACT</span><h1>あなたの気づきが、まちの改善候補になります。</h1>
 <div class="card">
 <h2>今回の提案</h2>
-<div class="feedback">
+<div id="planFeedback" class="feedback">
 🌳 <b>中央公園・休憩環境</b><br><br>
 日陰のある休憩スペースについて、同じテーマの投稿と合わせて自治体の確認候補として整理します。
 </div>
 <hr>
 <b>同じテーマの気づき</b>
-<p><strong style="font-size:28px;color:var(--blue)">27件</strong> 集まっています</p>
-<div class="progress"><span style="width:68%"></span></div>
-<p class="muted">「日陰が少ない」「夏場に休みにくい」など、似た気づきがあります。</p>
+<p><strong id="planCount" style="font-size:28px;color:var(--blue)">27件</strong> 集まっています</p>
+<div class="progress"><span id="planProgress" style="width:68%"></span></div>
+<p id="planMutual" class="muted">「日陰が少ない」「夏場に休みにくい」など、似た気づきがあります。</p>
 </div>
 <button class="btn green" onclick="completeQuest()">クエストを完了する</button>
 </section>
@@ -357,13 +370,13 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 <div class="big">🎉</div>
 <span class="eyebrow">QUEST COMPLETE</span>
 <h1>あなたの気づきが<br>地域に届きました。</h1>
-<p>中央公園クエストへの参加、ありがとうございました。</p>
+<p id="completeMessage">中央公園クエストへの参加、ありがとうございました。</p>
 <div class="card">
 <small>獲得した地域ポイント</small>
-<strong>+500 pt</strong>
+<strong id="rewardEarned">+500 pt</strong>
 <p class="muted">地域のお店・施設などで使えるポイントです。</p>
 </div>
-<div class="feedback"><b>今日の活動</b><br>外出 約42分　・　歩行 約3,200歩<br>地域への気づき 1件</div>
+<div id="completeFeedback" class="feedback"><b>今日の活動</b><br>外出 約42分　・　歩行 約3,200歩<br>地域への気づき 1件</div>
 <br>
 <button class="btn" onclick="show('wallet')">ポイントを見る</button><br><br>
 <button class="btn outline" onclick="show('impact')">この気づきのその後を見る</button>
@@ -413,12 +426,12 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 <section id="impact" class="screen">
 <span class="eyebrow">FEEDBACK</span><h1>あなたの気づきは、どうなった？</h1>
 <div class="timeline">
-<div class="item"><b>あなたが投稿</b><p class="muted">「中央公園は日陰が少なく、夏は休みにくい」</p></div>
-<div class="item"><b>127人がクエストに参加</b><p class="muted">324件のExperience Dataが集まりました。</p></div>
-<div class="item"><b>AIがテーマ別に整理</b><p class="muted">「休憩環境」「案内表示」「トイレ」など10テーマに整理。</p></div>
-<div class="item"><b>自治体が確認</b><p class="muted">休憩環境が「現地確認したい課題」に選ばれました。</p></div>
+<div class="item"><b>あなたが投稿</b><p id="impactPost" class="muted">「中央公園は日陰が少なく、夏は休みにくい」</p></div>
+<div class="item"><b id="impactPeople">127人がクエストに参加</b><p id="impactPeopleDesc" class="muted">324件のExperience Dataが集まりました。</p></div>
+<div class="item"><b>AIがテーマ別に整理</b><p id="impactAi" class="muted">「休憩環境」「案内表示」「トイレ」など10テーマに整理。</p></div>
+<div class="item"><b>自治体が確認</b><p id="impactAdmin" class="muted">休憩環境が「現地確認したい課題」に選ばれました。</p></div>
 </div>
-<div class="feedback"><b>あなたの声が、ちゃんと届いています。</b><br>投稿して終わりではなく、その後もお知らせします。</div>
+<div id="impactMessage" class="feedback"><b>あなたの声が、ちゃんと届いています。</b><br>投稿して終わりではなく、その後もお知らせします。</div>
 </section>
 
 <!-- 12 ADMIN -->
@@ -482,13 +495,186 @@ hr{border:0;border-top:1px solid var(--line);margin:15px 0}
 </div>
 
 <script>
-let score=3, completed=false, balance=3250;
+let score=3, completed=false, balance=3250, currentQuestKey='park';
+const quests = {
+  park: {
+    eyebrow: '中央公園クエスト',
+    title: '中央公園をメキキ！',
+    meta: '<span class="badge">📍1.2km</span><span class="badge">約30分</span><span class="badge orange">500pt</span>',
+    reward: 500,
+    why: '中央公園をもっと使いやすくするため、市では実際に利用した人の気づきを集めています。',
+    role: '公園を実際に歩き、座り、案内を見て「利用者だから気づけること」を教えてください。',
+    tasks: '① 公園を歩く　② ベンチを使う　③ 案内を見る　④ 気づきを投稿',
+    image: 'image/park.png',
+    alt: '中央公園',
+    cls: '',
+    startChecks: ['公園の入口から園内を歩いた','ベンチに実際に座ってみた','案内板・トイレ表示を確認した','「気になる場所」を一つ見つけた'],
+    inputQuestion: '公園の使いやすさは？',
+    photoLabel: '中央公園・ベンチ付近',
+    defaultComment: 'ベンチはきれいですが、午後は日陰が少なく夏は暑そうです。もう少し木陰があると使いやすいと思います。',
+    analysisTheme: '休憩環境・暑さ対策',
+    analysisSummary: 'ベンチ自体は良好だが、日陰が少なく暑い時間帯の利用に課題。',
+    analysisSuggestion: '木陰・日よけの確保や、休憩場所の配置を検討する余地があります。',
+    analysisLocation: '中央公園',
+    analysisTag: 'ベンチ・休憩環境',
+    planTitle: '中央公園・休憩環境',
+    planText: '日陰のある休憩スペースについて、同じテーマの投稿と合わせて自治体の確認候補として整理します。',
+    planCount: '27件',
+    planProgress: '68%',
+    planMutual: '「日陰が少ない」「夏場に休みにくい」など、似た気づきがあります。',
+    completeMessage: '中央公園クエストへの参加、ありがとうございました。',
+    completeFeedback: '<b>今日の活動</b><br>外出 約42分　・　歩行 約3,200歩<br>地域への気づき 1件',
+    impactPost: '「中央公園は日陰が少なく、夏は休みにくい」',
+    impactPeople: '127人がクエストに参加',
+    impactPeopleDesc: '324件のExperience Dataが集まりました。',
+    impactAi: '「休憩環境」「案内表示」「トイレ」など10テーマに整理。',
+    impactAdmin: '休憩環境が「現地確認したい課題」に選ばれました。',
+    impactMessage: '<b>あなたの声が、ちゃんと届いています。</b><br>投稿して終わりではなく、その後もお知らせします。'
+  },
+  route: {
+    eyebrow: '防災ルートクエスト',
+    title: '防災ルートを歩いてみよう',
+    meta: '<span class="badge">📍2.4km</span><span class="badge">約45分</span><span class="badge orange">800pt</span>',
+    reward: 800,
+    why: '災害時に避難しやすいルートを実際に歩いて、危険な場所や使いやすい場所を見つけてください。',
+    role: '防災経路を歩きながら、通行のしやすさや分かりやすさを体感して改善点を教えてください。',
+    tasks: '① 経路を歩く　② 交差点や案内を確認　③ 立ち止まりやすい場所を探す　④ 気づきを投稿',
+    image: 'image/bousai.png',
+    alt: '防災ルート',
+    cls: 'road',
+    startChecks: ['避難経路の入口から歩いてみた','交差点の見通しや段差を確認した','標識や避難誘導の案内を見た','危険な場所を一つ見つけた'],
+    inputQuestion: '避難経路の使いやすさは？',
+    photoLabel: '防災ルート・交差点',
+    defaultComment: '歩道の幅は十分ですが、交差点の見通しが悪く、夜間の通行が不安です。角の照明があると安心です。',
+    analysisTheme: '避難経路・歩行安全',
+    analysisSummary: '避難経路の視認性はあるが、夜間と交差点の安全性に改善余地がある。',
+    analysisSuggestion: '標識の位置や照明設置を確認し、避難導線の見直しを検討できます。',
+    analysisLocation: '防災ルート',
+    analysisTag: '交差点・避難導線',
+    planTitle: '防災ルート・避難導線',
+    planText: '避難経路の見通しと安全性について、同じテーマの投稿をまとめて自治体へ共有します。',
+    planCount: '19件',
+    planProgress: '62%',
+    planMutual: '「夜間が不安」「見通しが悪い」など、同じ不安が多く見られます。',
+    completeMessage: '防災ルートクエストへの参加、ありがとうございました。',
+    completeFeedback: '<b>今日の活動</b><br>外出 約52分　・　歩行 約4,100歩<br>地域への気づき 1件',
+    impactPost: '「交差点の見通しが悪く、夜間が不安」',
+    impactPeople: '134人がクエストに参加',
+    impactPeopleDesc: '287件の避難経路のデータが集まりました。',
+    impactAi: '「避難経路」「照明」「標識」など8テーマに整理。',
+    impactAdmin: '避難経路の照明と標識が「現地確認したい課題」に選ばれました。',
+    impactMessage: '<b>あなたの声が、避難計画の視点に届いています。</b><br>歩いた情報が、次の安全対策につながります。'
+  },
+  city: {
+    eyebrow: '市役所案内クエスト',
+    title: '市役所の案内を使ってメキキ',
+    meta: '<span class="badge">📍0.8km</span><span class="badge">約25分</span><span class="badge orange">300pt</span>',
+    reward: 300,
+    why: '市役所の案内や受付の体験を通じて、利用者が迷いやすい場所やわかりやすい場所を確認します。',
+    role: '案内表示や受付の流れを実際に体験し、「もっと分かりやすくできること」を教えてください。',
+    tasks: '① 入口まで来る　② 案内表示を見る　③ 受付や案内に触れる　④ 気づきを投稿',
+    image: 'image/service_counter.png',
+    alt: '市役所案内',
+    cls: 'city',
+    startChecks: ['市役所の入口まで行った','案内表示の見やすさを確認した','受付や窓口の流れを見た','わかりづらい場所を一つ見つけた'],
+    inputQuestion: '案内の分かりやすさは？',
+    photoLabel: '市役所・案内表示',
+    defaultComment: '案内表示は全体的に見やすいですが、受付までの導線が少し分かりにくいです。サインの位置を変えると安心です。',
+    analysisTheme: '案内表示・受付導線',
+    analysisSummary: '案内表示はあるが、受付までの導線と案内の見え方に改善余地がある。',
+    analysisSuggestion: '案内の大きさや位置を整理し、窓口への導線をわかりやすく整える候補として整理できます。',
+    analysisLocation: '市役所',
+    analysisTag: '案内表示・受付導線',
+    planTitle: '市役所・案内表示',
+    planText: '案内の見え方と導線について、同じ課題を持つ声をまとめて自治体へ共有します。',
+    planCount: '14件',
+    planProgress: '58%',
+    planMutual: '「どこで待てばいいかわからない」「案内が小さい」などの声が多いです。',
+    completeMessage: '市役所の案内クエストへの参加、ありがとうございました。',
+    completeFeedback: '<b>今日の活動</b><br>外出 約35分　・　歩行 約2,400歩<br>地域への気づき 1件',
+    impactPost: '「案内の向きと大きさが少しわかりにくい」',
+    impactPeople: '98人がクエストに参加',
+    impactPeopleDesc: '221件の案内表示データが集まりました。',
+    impactAi: '「案内表示」「導線」「受付動線」など7テーマに整理。',
+    impactAdmin: '案内サインと案内導線が「改善検討候補」に選ばれました。',
+    impactMessage: '<b>あなたの声が、案内の見え方を変えます。</b><br>利用者の視点が、次の案内設計に生かされます。'
+  }
+};
+
+function resetQuestState(){
+  document.querySelectorAll('#start input').forEach(el => el.checked = false);
+  document.querySelectorAll('.rate').forEach(el => el.classList.remove('selected'));
+  score = 3;
+  const photo = document.getElementById('photoNote');
+  photo.innerHTML = '📷<br><small>タップして写真を撮る（疑似）</small>';
+  photo.style.background = '#f7fcff';
+  photo.style.borderColor = '#b9d5e7';
+  document.getElementById('comment').value = '';
+}
+
+function setQuestContent(key){
+  const q=quests[key];
+  currentQuestKey=key;
+  resetQuestState();
+  const imgWrap=document.getElementById('detailQuestImg');
+  const img=imgWrap.querySelector('img');
+  img.src=q.image; img.alt=q.alt;
+  imgWrap.className='quest-img' + (q.cls ? ' '+q.cls : '');
+  document.getElementById('detailQuestEyebrow').textContent=q.eyebrow;
+  document.getElementById('detailQuestTitle').textContent=q.title;
+  document.getElementById('detailQuestMeta').innerHTML=q.meta;
+  document.getElementById('detailQuestWhy').textContent=q.why;
+  document.getElementById('detailQuestRole').textContent=q.role;
+  document.getElementById('detailQuestTasks').textContent=q.tasks;
+
+  document.getElementById('startTitle').textContent='さあ、メキキ開始。';
+  document.getElementById('startCheck1').textContent=q.startChecks[0];
+  document.getElementById('startCheck2').textContent=q.startChecks[1];
+  document.getElementById('startCheck3').textContent=q.startChecks[2];
+  document.getElementById('startCheck4').textContent=q.startChecks[3];
+
+  document.getElementById('inputQuestion').textContent=q.inputQuestion;
+  document.getElementById('photoNote').innerHTML='📷<br><small>タップして写真を撮る（疑似）</small>';
+  document.getElementById('photoNote').style.background='#f7fcff';
+  document.getElementById('photoNote').style.borderColor='#b9d5e7';
+  const commentEl=document.getElementById('comment');
+  commentEl.value=q.defaultComment;
+
+  document.getElementById('theme').textContent=q.analysisTheme;
+  document.getElementById('summary').textContent=q.analysisSummary;
+  document.getElementById('suggestion').textContent=q.analysisSuggestion;
+  document.getElementById('analysisLocation').textContent=q.analysisLocation;
+  document.getElementById('analysisTag').textContent=q.analysisTag;
+  document.getElementById('scoreText').textContent='3/5';
+
+  const planTitle = document.getElementById('planFeedback').querySelector('b');
+  planTitle.textContent=q.planTitle;
+  document.getElementById('planFeedback').innerHTML = '🌳 <b>' + q.planTitle + '</b><br><br>' + q.planText;
+  document.getElementById('planCount').textContent=q.planCount;
+  document.getElementById('planProgress').style.width=q.planProgress;
+  document.getElementById('planMutual').textContent=q.planMutual;
+
+  document.getElementById('completeMessage').textContent=q.completeMessage;
+  document.getElementById('completeFeedback').innerHTML=q.completeFeedback;
+  document.getElementById('rewardEarned').textContent='+' + q.reward + ' pt';
+
+  document.getElementById('impactPost').textContent=q.impactPost;
+  document.getElementById('impactPeople').textContent=q.impactPeople;
+  document.getElementById('impactPeopleDesc').textContent=q.impactPeopleDesc;
+  document.getElementById('impactAi').textContent=q.impactAi;
+  document.getElementById('impactAdmin').textContent=q.impactAdmin;
+  document.getElementById('impactMessage').innerHTML=q.impactMessage;
+}
 
 function show(id){
 document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 window.scrollTo({top:0,behavior:'smooth'});
 document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));
+}
+function openQuest(key){
+  setQuestContent(key);
+  show('detail');
 }
 function navTo(id,el){ show(id); }
 function toast(msg){
@@ -502,7 +688,8 @@ if(checked<2){toast('まず2つ以上体験してみてください');return;}
 show('input');
 }
 function photoTaken(el){
-el.innerHTML='✅ 写真を記録しました<br><small>中央公園・ベンチ付近</small>';
+const q=quests[currentQuestKey];
+el.innerHTML='✅ 写真を記録しました<br><small>' + q.photoLabel + '</small>';
 el.style.background='#eaf9f3';el.style.borderColor='#65c6a2';
 }
 function rate(el,n){
@@ -522,15 +709,19 @@ theme.textContent='歩行・バリアフリー';
 summary.textContent='歩行時の安全性・移動しやすさに関する気づき。';
 suggestion.textContent='段差や歩行導線を現地確認する候補として整理します。';
 }else{
-theme.textContent='休憩環境・暑さ対策';
-summary.textContent='ベンチ自体は良好だが、日陰が少なく暑い時間帯の利用に課題。';
-suggestion.textContent='木陰・日よけの確保や、休憩場所の配置を検討する余地があります。';
+const q=quests[currentQuestKey];
+theme.textContent=q.analysisTheme;
+summary.textContent=q.analysisSummary;
+suggestion.textContent=q.analysisSuggestion;
 }
 show('analysis');
 }
 function completeQuest(){
 if(!completed){
-completed=true; balance+=500;
+completed=true;
+const reward = quests[currentQuestKey].reward || 500;
+document.getElementById('rewardEarned').textContent='+' + reward + ' pt';
+balance += reward;
 document.getElementById('walletBalance').textContent=balance.toLocaleString()+' pt';
 document.getElementById('walletHome').textContent=balance.toLocaleString()+' pt';
 document.getElementById('homePoints').textContent=balance.toLocaleString();
